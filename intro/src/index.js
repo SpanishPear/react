@@ -9,7 +9,26 @@ import './index.css';
 function Square(props) {
 
     return (
-      <button className="square" onClick={() => {props.onClick()}}>
+      <button className="square confetti-button" onClick={((e) => {
+        console.log(e.target);
+        var animateButton = function(e) {
+			//reset animation
+			e.target.classList.remove('animate');
+			e.target.classList.add('animate');
+			setTimeout(function(){
+				e.target.classList.remove('animate');
+				console.log('heyy');
+			},700);
+        };
+
+        var classname = document.getElementsByClassName("confetti-button");
+
+        for (var i = 0; i < classname.length; i++) {
+        	classname[i].addEventListener('click', animateButton, false);
+        }
+        props.onClick();
+        
+        })}>
         {props.value}
       </button>
     );
@@ -27,7 +46,7 @@ class Board extends React.Component {
     //returns a square component with vlaue i
     return <Square 
       value={this.props.squares[i]}
-      onClick={()=>{this.props.onClick(i)}}
+      onClick={(e)=>{this.props.onClick(i)}}
     />;
   }
   
@@ -82,7 +101,7 @@ class Game extends React.Component {
     // console.log('Winner: ' + calculateWinner(squares) + 'so state is'+ !!!calculateWinner(squares));
     //! Triple exclamation for type conversion + inverting. 
     if(!!!squares[i] && !!!calculateWinner(squares)){
-      console.log(squares[i]);
+      // console.log(squares[i]);
       squares[i] = (this.state.xIsNext) ? 'X' : 'O'
       //push muttates the original array
       //concat merges history with the new squares
@@ -94,6 +113,8 @@ class Game extends React.Component {
         xIsNext: !this.state.xIsNext,
       });
     }
+    
+    
   }
 
   jumpTo(step) {
@@ -129,6 +150,7 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board 
+            className = "confetti-button"
             squares = {current.squares}
             onClick ={(i)=>this.handleClick(i)}
           />
@@ -162,7 +184,8 @@ function calculateWinner(squares) {
       return squares[a];
     }
   }
-  return null;
+
+  return (squares.includes(null)) ? null : 'It\'s a draw!';
 }
 
 // ========================================
