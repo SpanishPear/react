@@ -1,0 +1,127 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 0px;
+  background-color: #ECB3FF;
+  height: 100%;
+  
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+  font-family: 'Chilanka', cursive;
+
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 40px;
+  font-weight: bold;
+  color: black;
+  line-height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  height:20vh;
+  width: 20vh;
+}
+
+.square:focus {
+  outline: none;
+}
+button {
+  height: 4vh;
+  margin-top: -2vh; 
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #0069ed;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  border:none;
+  text-align: center;
+  /** THIS IS SO COOL! **/
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+button:hover{
+    background: #0053ba;
+}
+
+
+button:active {
+    transform: scale(0.99);
+}
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+}
+.game-board{
+  max-width: 50%;
+  height: 100%;
+  margin-top: 10%;
+  margin-left: 25%;
+}
+.game-info {
+  margin-left: 40px;
+  font-size: 250%;
+  align-self: flex-start;
+  margin-top: 5%;
+}
+
+/* stolen from https://www.cssscript.com/bubble-confetti-effect-button/ */
+.confetti-button.animate:before {
+  display: block;
+  animation: topBubbles ease-in-out 0.75s forwards;
+}
+
+.confetti-button.animate:after {
+  display: block;
+  animation: bottomBubbles ease-in-out 0.75s forwards;
+}
+
+@keyframes 
+topBubbles {  0% {
+ background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+}
+ 50% {
+ background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+}
+ 100% {
+ background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+}
+}
+
+@keyframes 
+bottomBubbles {  0% {
+ background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+}
+ 50% {
+ background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+}
+ 100% {
+ background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+}
+}
