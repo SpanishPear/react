@@ -14,7 +14,26 @@ body {
 .off {
   background-color: lightgray;
 }
-
+.button{
+    color: green;
+    height: 40px;
+    border-radius: 0px;
+    margin-right: 3px;
+    background-color: lightblue;
+    padding: 15px;
+    text-align: center;
+    vertical-align: center;
+    padding-top: 12px;
+    text-transform: uppercase;
+}
+.buttonContainer {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
 .on {
   background-color: green;
 }
