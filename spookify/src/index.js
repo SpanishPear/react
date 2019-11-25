@@ -11,10 +11,16 @@ class Main extends React.Component {
         test.tools.creepify.options.middle = false;
 
         var encoded = test.tools.creepify.encode('hello')
-        console.log(encoded);
+        var bent = test.tools.bent.encode("Test")
+        console.log(bent);
         return(
             <div>
-                <h1>{encoded}</h1>
+                <h1>
+                    {encoded}
+                </h1>
+                <h1>
+                    {bent}
+                </h1>
             </div>
         )
     }
