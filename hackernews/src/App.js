@@ -43,6 +43,9 @@ class App extends Component {
       
       // filter removes all items where function returns false
       const updatedList = this.state.list.filter(isNotId);
+
+      // actually update the state
+      this.setState({ list: updatedList });
   }
 
   render() {
