@@ -75,7 +75,7 @@ class App extends Component {
           {/*  repeat for all items that have the search term*/}
           {
             list.filter(isSearched(searchTerm)).map( (item) => 
-            <div key={item.objectID}>
+              <div key={item.objectID}>
               <span>
                 <a href={item.url}>{item.title}</a>
               </span>
@@ -92,7 +92,8 @@ class App extends Component {
                 </button>
               </span>
             </div>
-          )}
+            )
+          }
       </div>
     );
   }
