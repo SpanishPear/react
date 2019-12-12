@@ -22,11 +22,23 @@ const list = [
 ];
 
 class App extends Component {
+
+  constructor(props) {
+    // sets this.props = props;
+    super(props);
+
+    // state acts as internal memory
+    // an object
+    this.state = {
+      list: list,
+    }
+  }
+
   render() {
     return (
       <div className="App">
           {/* For all items in list, return the title in a div */}
-          {list.map( (item) => 
+          {this.state.list.map( (item) => 
               <div key={item.objectID}>
                 <span>
                   <a href={item.url}>{item.title}</a>
