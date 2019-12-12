@@ -22,6 +22,8 @@ const list = [
 ];
 
 // return a higher order function
+// the first function is given the searchTerm
+// second function is the one passed to the filter function, so has access to the item from filter
 const isSearched = (searchTerm) => (item) => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class App extends Component {
