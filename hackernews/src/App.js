@@ -30,7 +30,7 @@ class App extends Component {
     // state acts as internal memory
     // an object
     this.state = {
-      list: list,
+      list,
     }
   }
 
