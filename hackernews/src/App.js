@@ -53,23 +53,23 @@ class App extends Component {
       <div className="App">
           {/* For all items in list, return the title in a div */}
           {this.state.list.map( (item) => 
-              <div key={item.objectID}>
-                <span>
-                  <a href={item.url}>{item.title}</a>
-                </span>
-                <span>{item.author}</span>
-                <span>{item.num_comments}</span>
-                <span>{item.points}</span>
-                <span>
-                  {/* button that calls the local onDismiss function*/}
-                  <button
-                    onClick={() => this.onDismiss(item.objectID)}
-                    type="button"
-                  >
-                      Dismiss
-                  </button>
-                </span>
-              </div>
+            <div key={item.objectID}>
+              <span>
+                <a href={item.url}>{item.title}</a>
+              </span>
+              <span>{item.author}</span>
+              <span>{item.num_comments}</span>
+              <span>{item.points}</span>
+              <span>
+                {/* button that calls the local onDismiss function*/}
+                <button
+                  onClick={() => this.onDismiss(item.objectID)}
+                  type="button"
+                >
+                    Dismiss
+                </button>
+              </span>
+            </div>
           )}
       </div>
     );
