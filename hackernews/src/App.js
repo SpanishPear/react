@@ -24,7 +24,6 @@ const list = [
 // return a higher order function
 // the first function is given the searchTerm
 // second function is the one passed to the filter function, so has access to the item from filter
-const isSearched = (searchTerm) => (item) => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class App extends Component {
 
@@ -58,6 +57,8 @@ class App extends Component {
 
 
   render() {
+    const isSearched = (searchTerm) => (item) => item.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const {searchTerm, list} = this.state;
     return (
       <div className="App">
           {/* For all items in list, return the title in a div */}
@@ -72,7 +73,8 @@ class App extends Component {
           </form>
           
           {/*  repeat for all items that have the search term*/}
-          {this.state.list.filter(isSearched(this.state.searchTerm)).map( (item) => 
+          {
+            list.filter(isSearched(searchTerm)).map( (item) => 
             <div key={item.objectID}>
               <span>
                 <a href={item.url}>{item.title}</a>
