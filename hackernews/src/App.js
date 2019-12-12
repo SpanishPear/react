@@ -64,11 +64,12 @@ class App extends Component {
               type="text"
               onChange= {(event)=> {
                   let searchTerm = event.target.value;
-                  this.setState({searchTerm})
+                  this.setState({searchTerm});
               }}
             />
           </form>
           
+          {/*  repeat for all items that have the search term*/}
           {this.state.list.filter(isSearched(this.state.searchTerm)).map( (item) => 
             <div key={item.objectID}>
               <span>
