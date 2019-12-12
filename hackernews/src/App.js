@@ -63,17 +63,21 @@ class App extends Component {
   render() {
     const {searchTerm, list} = this.state;
     return (
-      <div className="App">
+      <div className="page">
           {/* For all items in list, return the title in a div */}
-          <Search 
-            value={searchTerm}
-            onChange={this.onSearchChange}
-          >
-          Search
-          </Search>
+          <div className="interactions">
+            <Search 
+              value={searchTerm}
+              onChange={this.onSearchChange}
+            >
+              <p style={{display:"inline-block", paddingRight: "20px"}}>Search</p>
+            </Search>
+          </div>
+
           <Table
             list={list}
             pattern={searchTerm}
+            onDismiss={this.onDismiss}
           /> 
           {/*  repeat for all items that have the search term*/}
 
@@ -82,61 +86,61 @@ class App extends Component {
   }
 }
 
-class Search extends Component {
-
-  render() {
-    const {
-      value,
-      onChange,
-      children
-    } = this.props;
-    
-    return (
-      <form>
-        {children}
-        <input
-          type="text"
-          onChange= {onChange}
-          // what's the point of this line...?
-          value={value}
-        />
-      </form>
-    )}
+const Search = ({value, onChange, children}) => {
+  return(
+    <form>
+      {children}
+      <input
+        type="text"
+        onChange= {onChange}
+        // what's the point of this line...?
+        value={value}
+      />
+    </form>
+  )
 }
 
-class Table extends Component {
+const Table = ({list, pattern, onDismiss}) =>{
+  const isSearched = (searchTerm) => (item) => item.title.toLowerCase().includes(searchTerm.toLowerCase());
   
-  render() {
+  const largeColumn = {
+    width: '40%',
+  };
+  
+  const midColumn = {
+    width: '30%',
+  };
+  
+  const smallColumn = {
+    width: '10%',
+  }
 
-    const {
-      list,
-      pattern,
-      onDismiss
-    } = this.props;
-
-    const isSearched = (searchTerm) => (item) => item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    return (
-      list.filter(isSearched(pattern)).map( (item) => 
-        <div key={item.objectID}>
-          <span>
+  return(
+    <div className="table">
+      {list.filter(isSearched(pattern)).map( (item) => 
+        <div key={item.objectID} className="table-row">
+          <span style={largeColumn}>
             <a href={item.url}>{item.title}</a>
           </span>
-          <span>{item.author}</span>
-          <span>{item.num_comments}</span>
-          <span>{item.points}</span>
+          <span style={midColumn}>{item.author}</span>
+          <span style={smallColumn}>{item.num_comments}</span>
+          <span style={smallColumn}>{item.points}</span>
           {/* button that calls the local onDismiss function*/}
-          <span>
+          <span style={smallColumn}>
             <Button
               onClick={() => onDismiss(item.objectID)}
+              className="button-inline"
             >
               Dismiss
             </Button>
           </span>
         </div>
-      )
-    )
-  }
+      )}
+    </div>
+
+  );
 }
+
 
 class Button extends Component {
   render() {
