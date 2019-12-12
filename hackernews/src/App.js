@@ -31,7 +31,18 @@ class App extends Component {
     // an object
     this.state = {
       list,
-    }
+    };
+    
+    // to access the this.onDismiss function
+    this.onDismiss = this.onDismiss.bind(this);
+  }
+
+  onDismiss(id) {
+      // returns true/false
+      const isNotId = item => item.objectID !== id;
+      
+      // filter removes all items where function returns false
+      const updatedList = this.state.list.filter(isNotId);
   }
 
   render() {
@@ -46,6 +57,15 @@ class App extends Component {
                 <span>{item.author}</span>
                 <span>{item.num_comments}</span>
                 <span>{item.points}</span>
+                <span>
+                  {/* button that calls the local onDismiss function*/}
+                  <button
+                    onClick={() => this.onDismiss(item.objectID)}
+                    type="button"
+                  >
+                      Dismiss
+                  </button>
+                </span>
               </div>
           )}
       </div>
