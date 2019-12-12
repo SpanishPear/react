@@ -126,16 +126,35 @@ class Table extends Component {
           <span>{item.points}</span>
           {/* button that calls the local onDismiss function*/}
           <span>
-            <button
+            <Button
               onClick={() => onDismiss(item.objectID)}
-              type="button"
             >
-                Dismiss
-            </button>
+              Dismiss
+            </Button>
           </span>
         </div>
       )
     )
+  }
+}
+
+class Button extends Component {
+  render() {
+    const {
+      onClick,
+      className = '',
+      children,
+    } = this.props;
+
+    return (
+      <button
+        onClick={onClick}
+        className={className}
+        type="button"
+      >
+        {children}
+      </button>
+    );
   }
 }
 export default App;
