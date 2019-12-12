@@ -21,6 +21,9 @@ const list = [
   },
 ];
 
+// return a higher order function
+const isSearched = (searchTerm) => (item) => item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
 class App extends Component {
 
   constructor(props) {
@@ -31,6 +34,7 @@ class App extends Component {
     // an object
     this.state = {
       list,
+      searchTerm : '',
     };
     
     // to access the this.onDismiss function
@@ -45,14 +49,27 @@ class App extends Component {
       const updatedList = this.state.list.filter(isNotId);
 
       // actually update the state
-      this.setState({ list: updatedList });
+      this.setState({ 
+        list: updatedList
+      });
   }
+
 
   render() {
     return (
       <div className="App">
           {/* For all items in list, return the title in a div */}
-          {this.state.list.map( (item) => 
+          <form>
+            <input
+              type="text"
+              onChange= {(event)=> {
+                  let searchTerm = event.target.value;
+                  this.setState({searchTerm})
+              }}
+            />
+          </form>
+          
+          {this.state.list.filter(isSearched(this.state.searchTerm)).map( (item) => 
             <div key={item.objectID}>
               <span>
                 <a href={item.url}>{item.title}</a>
@@ -60,8 +77,8 @@ class App extends Component {
               <span>{item.author}</span>
               <span>{item.num_comments}</span>
               <span>{item.points}</span>
+              {/* button that calls the local onDismiss function*/}
               <span>
-                {/* button that calls the local onDismiss function*/}
                 <button
                   onClick={() => this.onDismiss(item.objectID)}
                   type="button"
