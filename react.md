@@ -1,3 +1,11 @@
+# What is react:
+
+React is a **web framework** and a Javascript Library that allows us to build single page applications (SPA).
+Whilst React itself only delivers the view layer of the application, the surrounding "ecosystem" allows us to build full SPA's.
+
+It's important to note that React is a framework, not a language. The language most commonly used for React is called JSX - a hybrid between Javascript and HTML. It provides a way for developers to structure components (using HTML) whilst simultaneously making use of Javascript for programmatic development. 
+
+
 # ES6 Object Initialisation {# ObjInit}
  
 Excerpts from Robin Wieruch. “The Road to learn React.”
@@ -54,8 +62,10 @@ const user = {
 ```
 
 # ES6/React Convention
-  * Immutable data structures
-  * Return a new list, rather than the old "changed" list
+  ## Immutable data structures
+    * Return a new list, rather than the old "changed" list
+
+  ## Binding
   * The binding step is necessary because class methods don’t automatically bind this to the class instance
   * ```jsx
         class ExplainBindingsComponent extends Component {
@@ -96,6 +106,12 @@ const user = {
             }
         }
     ```
+    ```
+
+  ## Components
+    * The building blocks of react applications literally. 
+    * Instead of large components that we will copy and paste - we abstract them out into their own components.
+    * Components are akin to functions.
 
 # Splitting up components
 Items passed as key/value pairs into the class sets the props array passed into the component
@@ -132,3 +148,4 @@ class search extends Component {
   * ES6 Class Components extend from the React component. The extend hooks all the lifecycle methods, available in the React component API, to the component. This is how we were able to use the render() class method. You can also store and manipulate state in ES6 class components using this.state and this.setState().
 
   * React.createClass was used in older versions of React, and is still used in JavaScript ES5 React applications. But Facebook declared it as deprecated in favor of JavaScript ES6. They even added a deprecation warning in version 15.5.
+
