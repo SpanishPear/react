@@ -23,8 +23,10 @@ class App extends Component {
     // state acts as internal memory
     // an object
     this.state = {
-      result: null,
+      results: null,
+      searchKey: '',
       searchTerm: DEFAULT_QUERY,
+      error: null
     };
 
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
@@ -37,65 +39,93 @@ class App extends Component {
   }
 
   onDismiss(id) {
-      // returns true/false
-      const isNotId = (item) => item.objectID !== id;
+    const { searchKey, results } = this.state;
+    const { hits, page } = results[searchKey];
 
-      // filter removes all items where function returns false
-      const updatedHits = this.state.result.hits.filter(isNotId);
+    const isNotId = item => item.objectID !== id;
+    
+    // remove the dismissed item from hits
+    const updatedHits = hits.filter(isNotId);
 
-      // use es6+ object spread syntax :) 
-      this.setState({
-        result: { ...this.state.result, hits: updatedHits }
-      });
+    this.setState({
+      results: {
+        ...results,
+        [searchKey]: { hits: updatedHits, page }
+      }
+    });
   }
 
+  // when the text in the search form changes
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
   }
 
+  // called when someone presses the search button/enter
   onSearchSubmit(event) {
     const { searchTerm } = this.state;
-    this.fetchSearchTopStories(searchTerm);
-    // prevent the loading!
+    
+    // set the key in mem, then fetch
+    this.setState({ searchKey: searchTerm });
+    
+    if (!this.state.results[searchTerm]) {
+      this.fetchSearchTopStories(searchTerm);
+    }
+    
+    // prevent the reloading!
     event.preventDefault();
   }
 
   setSearchTopStories(result) {
     const { hits, page } = result;
+    const {searchKey, results} = this.state;
 
-    const oldHits = (page !== 0)
-      ? this.state.result.hits
+    const oldHits = results && results[searchKey]
+      ? results[searchKey].hits
       : [];
-  
+
     const updatedHits = [
       ...oldHits,
       ...hits
     ];
-  
+
     this.setState({
-      result: { hits: updatedHits, page }
+      results: {
+        ...results,
+        [searchKey]: { hits: updatedHits, page }
+      }
     });
   }
+  
   
   fetchSearchTopStories(searchTerm, page = 0) {
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
       // .then(result => console.log(result))
-      .catch(error => error);
+      .catch(error => this.setState({error}));
   }
   // invoked immediately after updating
   // but not initial render
   componentDidMount() {
     // deconstruct the state
     const { searchTerm } = this.state;
+    this.setState({searchKey: searchTerm});
     this.fetchSearchTopStories(searchTerm);
   }
  
   render() {
-    const { searchTerm , result } = this.state;
-    const page = (result && result.page) || 0;
-    if (!result) {return null;}
+    const { searchTerm , results, searchKey, error} = this.state;
+    const page = (
+      results &&
+      results[searchKey] &&
+      results[searchKey].page
+    ) || 0;
+
+    const list = (
+      results &&
+      results[searchKey] &&
+      results[searchKey].hits) || [];
+
     return (
       <div className="page">
 
@@ -109,10 +139,15 @@ class App extends Component {
               <p style={{display:"inline-block", paddingRight: "20px"}}>Search</p>
             </Search>
           </div>
-
-          { result &&
+          
+          {/* Error messasge if it exists! */}
+          {error ? 
+            <div className="interactions">
+              <p>Something went wrong.</p>
+            </div>
+            : 
             <Table
-              list={result.hits}
+              list={list}
               onDismiss={this.onDismiss}
             />
           }
