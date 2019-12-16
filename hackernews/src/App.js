@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const DEFAULT_QUERY = 'redux';
 
-const list = [
-  {
-    title: 'React',
-    url: 'https://reactjs.org/',
-    author: 'Jordan Walke',
-    num_comments: 3,
-    points: 4,
-    objectID: 0,
-  },
-  {
-    title: 'Redux',
-    url: 'https://redux.js.org/',
-    author: 'Dan Abramov, Andrew Clark',
-    num_comments: 2,
-    points: 5,
-    objectID: 1,
-  },
-];
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+
 
 // return a higher order function
 // the first function is given the searchTerm
@@ -34,9 +21,11 @@ class App extends Component {
     // state acts as internal memory
     // an object
     this.state = {
-      list,
-      searchTerm : '',
+      result: null,
+      searchTerm: DEFAULT_QUERY,
     };
+
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
     
     // to access the this.onDismiss function
     this.onDismiss = this.onDismiss.bind(this);
@@ -46,13 +35,13 @@ class App extends Component {
   onDismiss(id) {
       // returns true/false
       const isNotId = item => item.objectID !== id;
-      
-      // filter removes all items where function returns false
-      const updatedList = this.state.list.filter(isNotId);
 
-      // actually update the state
-      this.setState({ 
-        list: updatedList
+      // filter removes all items where function returns false
+      const updatedHits = this.state.result.hits.filter(isNotId);
+
+      // use es6+ object spread syntax :) 
+      this.setState({
+        result: { ...this.state.result, hits: updatedHits }
       });
   }
 
@@ -60,10 +49,32 @@ class App extends Component {
     this.setState({ searchTerm: event.target.value });
   }
 
+  setSearchTopStories(result) {
+    this.setState({result});
+    console.log(this.state)
+  }
+  
+  // invoked immediately after updating
+  // but not initial render
+  componentDidMount() {
+  
+    // deconstruct the state
+    const { searchTerm } = this.state;
+
+    // async mâgìç
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+      .then(response => response.json())
+      .then(result => this.setSearchTopStories(result))
+      .catch(error => error);
+
+  }
+
   render() {
-    const {searchTerm, list} = this.state;
+    const { searchTerm , result } = this.state;
+    if (!result) {return null;}
     return (
       <div className="page">
+
           {/* For all items in list, return the title in a div */}
           <div className="interactions">
             <Search 
@@ -74,11 +85,14 @@ class App extends Component {
             </Search>
           </div>
 
-          <Table
-            list={list}
-            pattern={searchTerm}
-            onDismiss={this.onDismiss}
-          /> 
+          { result &&
+            <Table
+              list={result.hits}
+              pattern={searchTerm}
+              onDismiss={this.onDismiss}
+            />
+          }
+          
           {/*  repeat for all items that have the search term*/}
 
       </div>
