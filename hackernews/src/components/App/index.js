@@ -100,7 +100,12 @@ class App extends Component {
   fetchSearchTopStories(searchTerm, page = 0) {
     // axios defaults to get
     // can also use axios.get()
-    axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+    const params = {
+      [PARAM_SEARCH] : searchTerm,
+      [PARAM_PAGE] : page,
+      [PARAM_HPP] : DEFAULT_HPP
+    }
+    axios(`${PATH_BASE}${PATH_SEARCH}`, {params})
       .then(result => {
         console.log(result)
         this.setSearchTopStories(result)
