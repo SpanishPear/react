@@ -1,0 +1,49 @@
+
+.square {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    line-height: 34px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    height:20vh;
+    width: 20vh;
+  }
+  
+  .square:focus {
+    outline: none;
+  }
+  button {
+    height: 4vh;
+    margin-top: -2vh; 
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: #0069ed;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    border:none;
+    text-align: center;
+    /** THIS IS SO COOL! **/
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  button:hover{
+      background: #0053ba;
+  }
+  
+  
+  button:active {
+      transform: scale(0.99);
+  }
+  .kbd-navigation .square:focus {
+    background: #ddd;
+  }
