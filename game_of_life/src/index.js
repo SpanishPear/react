@@ -174,7 +174,7 @@ class Main extends React.Component {
 					Generation: {this.state.generation}
 				</h2>
 				<h2>
-					Speed: Update every {this.speed}s
+					Speed: Update every {this.speed}ms
 				</h2>
 				<div className="buttonContainer">
 					<button 
