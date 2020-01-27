@@ -55,14 +55,10 @@ class App extends React.Component {
     
     return (
       <div>
-        <Heading/>
+        <Heading />
         <ProgressBar />
-
-        <div className="textContainer">
-          <h1 className="YesNoText ">
-            {determineAnswer()}
-          </h1>
-        </div>
+        <Answer />
+  
 
       </div>
     );
