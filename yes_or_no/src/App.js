@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.css';
 import ProgressBar from './Components/ProgressBar';
 import Heading from './Components/Heading'
+import Answer from './Components/Answer'
+
 class App extends React.Component {
 
   constructor(props) {
@@ -43,15 +44,6 @@ class App extends React.Component {
 
 
   render() {
-    // determines 'yes' or 'no
-    function determineAnswer() {
-      if (Math.floor(Math.random() * Math.floor(2))  ){
-        return 'Yes'
-      } else {
-        return 'No'
-      }
-    }
-
     
     return (
       <div>
