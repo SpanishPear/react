@@ -1,46 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-.App { 
+.textContainer { 
   display: inline-block;
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
   color: white;
+  padding: 0 3%;
+  background-color: black;
+  margin-top: 5%;
+  text-align: center;
 }
 
 .YesNoText {
   font-size: 6em;
-  padding: .75em;
   display: None;
-  background-color: black;
-  margin-top: 150px;
+  margin-top: 30%;
+  margin-bottom: 50%;
+  top:5%;
+  left: 5%;
 }
 
-
-.myBar {
-  width: 5%;
-  height: 30px;
-  background-color: #4CAF50;
-  text-align: center;
-  line-height: 30px;
-  color: black;
-  margin-top: 10px;
-  
-}
-.barContainer{
-  width: 40%;
-  position: fixed;
-  display: inline-block;
-  top: 30%;
-  left: 30%;
-}
-
-.calculatingText{
-  text-align: center;
-  display: inline-block;
-  margin: 0 12.5%;  
-  width: 75%;
-  font-size: 1.5em;
-  font-family: 'Roboto', sans-serif;
-}
