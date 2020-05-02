@@ -50,7 +50,6 @@ class App extends React.Component {
         <Heading />
         <ProgressBar />
         <Answer />
-  
 
       </div>
     );
